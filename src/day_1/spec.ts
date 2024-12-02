@@ -1,7 +1,6 @@
 import test from 'ava';
 import { sumOfSortedDistances } from './part_1';
 import { input, sample } from './input';
-import { tally } from '../utils';
 import { similarityScore } from './part_2';
 
 test('Part 1', t => {

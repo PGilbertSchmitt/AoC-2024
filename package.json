@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ava ./src/**/spec.ts"
+    "test": "ava",
+    "test-all": "ava ./src/**/spec.ts"
   },
   "keywords": [],
   "author": "",
