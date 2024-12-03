@@ -13,7 +13,5 @@ export const sumOfSortedDistances = (input: string) => {
   const [left, right] = toLists(input);
   const sortedLeft = justSort(left);
   const sortedRight = justSort(right);
-  return sum(
-    zip(sortedLeft, sortedRight).map(([x, y]) => Math.abs(x - y))
-  );
+  return sum(zip(sortedLeft, sortedRight).map(([x, y]) => Math.abs(x - y)));
 };

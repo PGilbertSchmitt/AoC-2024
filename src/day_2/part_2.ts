@@ -1,7 +1,8 @@
-import { any, remove } from "ramda";
-import { parseInput, safeEntry } from "./part_1";
+import { any, remove } from 'ramda';
+import { parseInput, safeEntry } from './part_1';
 
-const dampenEntry = (entry: number[], i: number): number[] => remove(i, 1, entry);
+const dampenEntry = (entry: number[], i: number): number[] =>
+  remove(i, 1, entry);
 
 export const safeEntryWithDampener = (entry: number[]): boolean => {
   const allPossibilities: Array<number[]> = [

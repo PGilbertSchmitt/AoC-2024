@@ -1,6 +1,6 @@
-import { sum } from "ramda";
-import { toLists } from "./part_1";
-import { tally } from "../utils";
+import { sum } from 'ramda';
+import { toLists } from './part_1';
+import { tally } from '../utils';
 
 export const similarityScore = (input: string) => {
   const [left, right] = toLists(input);

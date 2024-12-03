@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "format": "prettier --write .",
     "test": "ava",
     "test-all": "ava ./src/**/spec.ts"
   },
