@@ -12,6 +12,7 @@ export const calibrateOperators = (input: string, operators: Operator[]) =>
     const operands = operandsStr.split(' ').map(val => parseInt(val));
 
     const findValidEquation = (result: number, total: number, [operand, ...operands]: number[]): boolean => {
+      if (total > result) return false;
       if (operand === undefined) return total === result;
       return any(op => findValidEquation(result, op(total, operand), operands), operators);
     }
