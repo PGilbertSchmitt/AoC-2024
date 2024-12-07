@@ -6,7 +6,8 @@
   "scripts": {
     "format": "prettier --write .",
     "test": "ava",
-    "test-all": "ava ./src/**/spec.ts"
+    "test-all": "ava ./src/**/spec.ts",
+    "try": "ts-node"
   },
   "keywords": [],
   "author": "",
