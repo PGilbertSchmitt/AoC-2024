@@ -16,11 +16,12 @@ export const allSubPairs = <T>(list: T[]): Array<[T, T]> => {
   const [first, ...rest] = list;
   return concat(
     rest.map(x => [first, x] as [T, T]),
-    allSubPairs(rest)
+    allSubPairs(rest),
   );
-}
-
-export const coordToKey = (maxX: number, maxY: number) => (x: number, y: number) => {
-  if (x < 0 || x > maxX || y < 0 || y > maxY) return null;
-  return x * (maxX+1) + y;
 };
+
+export const coordToKey =
+  (maxX: number, maxY: number) => (x: number, y: number) => {
+    if (x < 0 || x > maxX || y < 0 || y > maxY) return null;
+    return x * (maxX + 1) + y;
+  };

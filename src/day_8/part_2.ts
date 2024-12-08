@@ -1,4 +1,4 @@
-import { AntinodeCalculator, Pos } from "./part_1";
+import { AntinodeCalculator, Pos } from './part_1';
 
 export const harmonics: AntinodeCalculator = (toKey, [x1, y1], [x2, y2]) => {
   const xDiff = x2 - x1;
@@ -7,8 +7,8 @@ export const harmonics: AntinodeCalculator = (toKey, [x1, y1], [x2, y2]) => {
 
   points.push(toKey(x1, y1)!);
 
-  let addX = x1+xDiff
-  let addY = y1+yDiff;
+  let addX = x1 + xDiff;
+  let addY = y1 + yDiff;
   while (true) {
     let key = toKey(addX, addY);
     if (key === null) break;
@@ -17,8 +17,8 @@ export const harmonics: AntinodeCalculator = (toKey, [x1, y1], [x2, y2]) => {
     addY += yDiff;
   }
 
-  let subX = x1-xDiff
-  let subY = y1-yDiff;
+  let subX = x1 - xDiff;
+  let subY = y1 - yDiff;
   while (true) {
     let key = toKey(subX, subY);
     if (key === null) break;

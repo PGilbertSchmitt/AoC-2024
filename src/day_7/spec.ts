@@ -9,5 +9,9 @@ test('Part 1', t => {
 
 test('Part 2', t => {
   t.is(calibrateOperators(sample, [add, mult, concat]), 11387, 'sample');
-  t.is(calibrateOperators(input, [add, mult, concat]), 104824810233437, 'input');
+  t.is(
+    calibrateOperators(input, [add, mult, concat]),
+    104824810233437,
+    'input',
+  );
 });

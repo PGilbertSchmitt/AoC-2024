@@ -40,19 +40,27 @@ export const parseInput = (input: string): Input => {
 
 const nextPos = ([r, c, d]: Pos): Pos => {
   switch (d) {
-    case Dirs.N: return [r-1, c, d];
-    case Dirs.E: return [r, c+1, d];
-    case Dirs.S: return [r+1, c, d];
-    case Dirs.W: return [r, c-1, d];
+    case Dirs.N:
+      return [r - 1, c, d];
+    case Dirs.E:
+      return [r, c + 1, d];
+    case Dirs.S:
+      return [r + 1, c, d];
+    case Dirs.W:
+      return [r, c - 1, d];
   }
 };
 
 const clockworkTurn = ([r, c, d]: Pos): Pos => {
   switch (d) {
-    case Dirs.N: return [r, c, Dirs.E];
-    case Dirs.E: return [r, c, Dirs.S];
-    case Dirs.S: return [r, c, Dirs.W];
-    case Dirs.W: return [r, c, Dirs.N];
+    case Dirs.N:
+      return [r, c, Dirs.E];
+    case Dirs.E:
+      return [r, c, Dirs.S];
+    case Dirs.S:
+      return [r, c, Dirs.W];
+    case Dirs.W:
+      return [r, c, Dirs.N];
   }
 };
 
@@ -77,6 +85,6 @@ export const distinctGuardPositions = (input: string): number => {
 
     visitedSpots.add(posKey(currentPos));
   }
-  
+
   return visitedSpots.size;
 };

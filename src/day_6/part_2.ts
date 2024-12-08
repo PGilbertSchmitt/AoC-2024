@@ -32,32 +32,36 @@ const parseInput = (input: string) => {
 
 const nextPos = ([r, c]: Pos, d: Dir): Pos => {
   switch (d) {
-    case Dirs.N: return [r-1, c];
-    case Dirs.E: return [r, c+1];
-    case Dirs.S: return [r+1, c];
-    case Dirs.W: return [r, c-1];
+    case Dirs.N:
+      return [r - 1, c];
+    case Dirs.E:
+      return [r, c + 1];
+    case Dirs.S:
+      return [r + 1, c];
+    case Dirs.W:
+      return [r, c - 1];
   }
 };
 
 const clockworkTurn = (dir: Dir): Dir => {
   switch (dir) {
-    case Dirs.N: return Dirs.E;
-    case Dirs.E: return Dirs.S;
-    case Dirs.S: return Dirs.W;
-    case Dirs.W: return Dirs.N;
+    case Dirs.N:
+      return Dirs.E;
+    case Dirs.E:
+      return Dirs.S;
+    case Dirs.S:
+      return Dirs.W;
+    case Dirs.W:
+      return Dirs.N;
   }
 };
 
 export const totalGuardLoopPositions = (input: string) => {
-  const {
-    obstructionSet,
-    guardPos,
-    posKey,
-    gridHeight,
-    gridWidth,
-  } = parseInput(input);
-  
-  const inGrid = ([r, c]: Pos) => r >= 0 && r < gridHeight && c >= 0 && c < gridWidth;
+  const { obstructionSet, guardPos, posKey, gridHeight, gridWidth } =
+    parseInput(input);
+
+  const inGrid = ([r, c]: Pos) =>
+    r >= 0 && r < gridHeight && c >= 0 && c < gridWidth;
 
   const guardPath = (obstructions: Set<number>): Map<number, number> | null => {
     const visitMap = new Map<number, number>();
@@ -75,13 +79,13 @@ export const totalGuardLoopPositions = (input: string) => {
       const space = visitMap.get(key) || 0;
       return (space & (1 << dir)) !== 0;
     };
-  
+
     const navigate = (pos: Pos, dir: Dir): Pos | null => {
       let curPos = pos;
       while (true) {
         visit(curPos, dir);
         const ahead = nextPos(curPos, dir);
-        const aheadKey = posKey(ahead); 
+        const aheadKey = posKey(ahead);
         if (!inGrid(ahead)) {
           return null; // The end
         }
@@ -106,10 +110,10 @@ export const totalGuardLoopPositions = (input: string) => {
       // This is guaranteed to be safe
       return clockworkTurn(newDir);
     };
-  
+
     let currentPos: Pos = guardPos;
     let currentDir: Dir = Dirs.N;
-  
+
     while (true) {
       const newPos = navigate(currentPos, currentDir);
       if (newPos === null) break;
