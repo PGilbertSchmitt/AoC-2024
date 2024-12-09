@@ -1,16 +1,14 @@
-import { sum, times } from "ramda";
+import { sum, times } from 'ramda';
 
-export const parseInput = (input: string) => input
+export const parseInput = (input: string) =>
+  input
     .trim()
     .split('')
-    .reduce(
-      (list: Array<number>, ch, i) => {
-        const count = parseInt(ch);
-        times(() => list.push(i % 2 === 0 ? i / 2 : -1), count);
-        return list;
-      },
-      [],
-    );
+    .reduce((list: Array<number>, ch, i) => {
+      const count = parseInt(ch);
+      times(() => list.push(i % 2 === 0 ? i / 2 : -1), count);
+      return list;
+    }, []);
 
 export const compactFilesystemNaive = (input: string) => {
   const fileSystem = parseInput(input);

@@ -12,4 +12,3 @@ test('Part 2', t => {
   t.is(compactFilesystem(sample), 2858, 'sample');
   t.is(compactFilesystem(input), 6237075041489, 'input');
 });
-

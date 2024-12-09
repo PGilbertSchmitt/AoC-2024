@@ -1,15 +1,15 @@
-import { max, sum, times } from "ramda";
+import { max, sum, times } from 'ramda';
 
 type FSMap = Map<number, Array<[number, number]>>;
 
-export const parseInput = (input: string): FSMap => input
-  .trim()
-  .split('')
-  .reduce(
-    (m, ch, i) =>
-      m.set(i, [[parseInt(ch), i % 2 === 0 ? i / 2 : -1]]),
-    new Map(),
-  );
+export const parseInput = (input: string): FSMap =>
+  input
+    .trim()
+    .split('')
+    .reduce(
+      (m, ch, i) => m.set(i, [[parseInt(ch), i % 2 === 0 ? i / 2 : -1]]),
+      new Map(),
+    );
 
 const checksum = (fileSystem: FSMap): number => {
   const elements: number[] = [];
@@ -44,7 +44,7 @@ export const compactFilesystem = (input: string) => {
     }
     largestSpace = count - 1;
     return false;
-  }
+  };
 
   for (let dataIdx = fileSystem.size - 1; dataIdx > 1; dataIdx -= 2) {
     const entry = fileSystem.get(dataIdx)![0];
@@ -54,4 +54,4 @@ export const compactFilesystem = (input: string) => {
   }
 
   return checksum(fileSystem);
-}
+};
