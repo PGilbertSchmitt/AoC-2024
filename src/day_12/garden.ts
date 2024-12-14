@@ -1,11 +1,11 @@
 import { all, count, filter, isNotNil, sum, uniq } from 'ramda';
-import { Pos } from '../types';
+import { Vec } from '../types';
 import { coordToKey } from '../utils';
 
 export interface Region {
   id: string;
   fences: number;
-  locations: Pos[];
+  locations: Vec[];
 }
 
 interface SearchSpace {
@@ -60,14 +60,14 @@ export class Garden {
     });
   }
 
-  private priorNeighbors([r, c]: Pos): Array<Pos> {
+  private priorNeighbors([r, c]: Vec): Array<Vec> {
     return [
       [r - 1, c],
       [r, c - 1],
     ];
   }
 
-  private pushSpace(id: string, pos: Pos) {
+  private pushSpace(id: string, pos: Vec) {
     const neighboringRegions = this.priorNeighbors(pos)
       .map(p => {
         const key = this.posKey(...p);
@@ -135,7 +135,7 @@ export class Garden {
 
     const searchLocationsWithDups = [...reg.locations];
     reg.locations.forEach(([r, c]) => {
-      const searchSpaces: Pos[] = [
+      const searchSpaces: Vec[] = [
         [r + 1, c],
         [r, c + 1],
         [r + 1, c + 1],

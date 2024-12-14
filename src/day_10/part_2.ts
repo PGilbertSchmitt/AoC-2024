@@ -1,14 +1,14 @@
 import { sum } from 'ramda';
-import { Pos } from '../types';
+import { Vec } from '../types';
 import { neighbors, parseInput } from './part_1';
 
 export const trailheadRating = (input: string) => {
   const { startingPoints, heightMap, rowCount, colCount } = parseInput(input);
 
-  const inGrid = ([r, c]: Pos) =>
+  const inGrid = ([r, c]: Vec) =>
     r >= 0 && r < rowCount && c >= 0 && c < colCount;
 
-  const navigate = (target: number, pos: Pos): number => {
+  const navigate = (target: number, pos: Vec): number => {
     if (target === 10) return 1;
 
     return sum(

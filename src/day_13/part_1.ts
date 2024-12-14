@@ -1,14 +1,14 @@
 import { isNotNil } from 'ramda';
-import { Pos } from '../types';
+import { Vec } from '../types';
 
 interface Machine {
-  slope1: Pos;
-  slope2: Pos;
-  end: Pos;
+  slope1: Vec;
+  slope2: Vec;
+  end: Vec;
 }
 
 const TWO_NUMS = /(\d+)/g;
-const twoNums = (line: string): Pos => {
+const twoNums = (line: string): Vec => {
   const [x, y] = line.match(TWO_NUMS)!;
   return [parseInt(x), parseInt(y)];
 };
@@ -27,9 +27,9 @@ export const parseInput = (input: string): Array<Machine> =>
     });
 
 const intersectionPoint = (
-  slope1: Pos,
-  slope2: Pos,
-  endPoint: Pos,
+  slope1: Vec,
+  slope2: Vec,
+  endPoint: Vec,
 ): [bigint, bigint] | null => {
   // https://en.wikipedia.org/wiki/Line-line_intersection#Given_two_points_on_each_line
 

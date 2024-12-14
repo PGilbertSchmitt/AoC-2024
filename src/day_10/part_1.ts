@@ -1,11 +1,11 @@
 import { flatten, sum } from 'ramda';
-import { Grid as Grid_, Pos } from '../types';
+import { Grid as Grid_, Vec } from '../types';
 import { coordToKey } from '../utils';
 
 type Grid = Grid_<number>;
 
 export const parseInput = (input: string) => {
-  const startingPoints: Array<Pos> = [];
+  const startingPoints: Array<Vec> = [];
   const lines = input.trim().split('\n');
   const heightMap: Grid = lines.map((line, row) =>
     line.split('').map((val, col) => {
@@ -28,7 +28,7 @@ export const parseInput = (input: string) => {
   };
 };
 
-export const neighbors = ([r, c]: Pos): Array<Pos> => [
+export const neighbors = ([r, c]: Vec): Array<Vec> => [
   [r + 1, c],
   [r - 1, c],
   [r, c + 1],
@@ -45,7 +45,7 @@ export const trailheadScore = (input: string) => {
 
   const navigate =
     (target: number) =>
-    (pos: Pos): Array<number> => {
+    (pos: Vec): Array<number> => {
       const [r, c] = pos;
       const key = posKey(r, c);
       if (key === null || heightMap[r][c] !== target) {
