@@ -1,4 +1,5 @@
 import { concat, sort } from 'ramda';
+import { Grid, Vec } from './types';
 
 export const justSort = (list: number[]): number[] =>
   sort((x, y) => x - y, list);
@@ -25,3 +26,15 @@ export const coordToKey =
     if (x < 0 || x > maxX || y < 0 || y > maxY) return null;
     return x * (maxX + 1) + y;
   };
+
+export const addVecs = (v1: Vec) => (v2: Vec): Vec => [
+  v1[0] + v2[0],
+  v1[1] + v2[1],
+];
+
+export const gridHandlers = <T>(grid: Grid<T>) => ({
+  getAt: (vec: Vec): T => grid[vec[0]][vec[1]],
+  setAt: (vec: Vec, val: T) => {
+    grid[vec[0]][vec[1]] = val;
+  },
+});
