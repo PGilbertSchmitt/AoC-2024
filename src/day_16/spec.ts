@@ -12,5 +12,5 @@ test('Part 1', t => {
 test('Part 2', t => {
   t.is(getAllCheapestPathSpots(sample1), 45, 'sample1');
   t.is(getAllCheapestPathSpots(sample2), 64, 'sample2');
- // t.is(allCheapestPathSpots(input), 426, 'input'); // Very inefficient, takes 30+ seconds
+  // t.is(allCheapestPathSpots(input), 426, 'input'); // Very inefficient, takes 30+ seconds
 });

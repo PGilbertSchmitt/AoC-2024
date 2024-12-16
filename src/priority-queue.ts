@@ -62,8 +62,12 @@ export class PriorityQueue<T> {
     let curIdx = ROOT_IDX;
     let left = toLeftChildIdx(curIdx);
     let right = toRightChildIdx(curIdx);
-    while ((left < this.size() && this.compare(left, curIdx)) || (right < this.size() && this.compare(right, curIdx))) {
-      const priorityChild = (right < this.size() && this.compare(right, left)) ? right : left;
+    while (
+      (left < this.size() && this.compare(left, curIdx)) ||
+      (right < this.size() && this.compare(right, curIdx))
+    ) {
+      const priorityChild =
+        right < this.size() && this.compare(right, left) ? right : left;
       this.swap(curIdx, priorityChild);
       curIdx = priorityChild;
       left = toLeftChildIdx(curIdx);

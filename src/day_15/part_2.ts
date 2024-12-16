@@ -1,7 +1,7 @@
-import { concat, flatten, reverse, sum, uniq } from "ramda";
-import { Grid, ValueOf, Vec } from "../types";
-import { addVecs, gridHandlers } from "../utils";
-import { Dir, dirTransform, DirType } from "./part_1";
+import { concat, flatten, reverse, sum, uniq } from 'ramda';
+import { Grid, ValueOf, Vec } from '../types';
+import { addVecs, gridHandlers } from '../utils';
+import { Dir, dirTransform, DirType } from './part_1';
 
 const Space = {
   EMPTY: 0,
@@ -21,44 +21,58 @@ interface Warehouse {
 
 const parseInput = (input: string): Warehouse => {
   const [gridStr, insStr] = input.trim().split('\n\n');
-  
+
   let robot: Vec = [0, 0];
-  const grid = gridStr.split('\n').map((line, row) => flatten(
-    line.split('').map((ch, col) => {
-      switch (ch) {
-        case '#': return [Space.WALL, Space.WALL];
-        case '.': return [Space.EMPTY, Space.EMPTY];
-        case 'O': return [Space.BOX_L, Space.BOX_R];
-        case '@': {
-          robot = [row, col * 2];
-          return [Space.EMPTY, Space.EMPTY];
+  const grid = gridStr.split('\n').map((line, row) =>
+    flatten(
+      line.split('').map((ch, col) => {
+        switch (ch) {
+          case '#':
+            return [Space.WALL, Space.WALL];
+          case '.':
+            return [Space.EMPTY, Space.EMPTY];
+          case 'O':
+            return [Space.BOX_L, Space.BOX_R];
+          case '@': {
+            robot = [row, col * 2];
+            return [Space.EMPTY, Space.EMPTY];
+          }
+          default:
+            throw new Error(`Invalid warehouse character: ${ch}`);
         }
-        default: throw new Error(`Invalid warehouse character: ${ch}`);
-      }
-    })
-  ));
-  
+      }),
+    ),
+  );
+
   return {
     grid,
     robot,
     iPtr: 0,
-    instructions: insStr.replace(/\n/g, '').split('').map(ch => {
-      switch (ch) {
-        case '^': return Dir.UP;
-        case '>': return Dir.RIGHT;
-        case '<': return Dir.LEFT;
-        case 'v': return Dir.DOWN;
-        default: throw new Error(`Invalid direction: ${ch}`);
-      }
-    }),
-  }
+    instructions: insStr
+      .replace(/\n/g, '')
+      .split('')
+      .map(ch => {
+        switch (ch) {
+          case '^':
+            return Dir.UP;
+          case '>':
+            return Dir.RIGHT;
+          case '<':
+            return Dir.LEFT;
+          case 'v':
+            return Dir.DOWN;
+          default:
+            throw new Error(`Invalid direction: ${ch}`);
+        }
+      }),
+  };
 };
 
 const lateralShift = (warehouse: Warehouse) => {
   const { grid, iPtr, instructions, robot } = warehouse;
   const dirVec = dirTransform(instructions[iPtr]);
   const move = addVecs(dirVec);
-  
+
   const orderedBoxCoords: Array<Vec> = [];
   let viewedSpace = robot;
   const { getAt, setAt } = gridHandlers(grid);
@@ -106,8 +120,8 @@ const verticalShift = (warehouse: Warehouse) => {
       switch (nextSpace) {
         case Space.WALL: {
           // Invalidates the whole move
-          return null
-        };
+          return null;
+        }
         case Space.BOX_L: {
           nextCoords.push(nextCoord);
           nextCoords.push(moveRight(nextCoord));
@@ -121,9 +135,8 @@ const verticalShift = (warehouse: Warehouse) => {
       }
     }
 
-    const nextLayer = nextCoords.length > 0
-      ? getPushableBoxCoords(uniq(nextCoords))
-      : [];
+    const nextLayer =
+      nextCoords.length > 0 ? getPushableBoxCoords(uniq(nextCoords)) : [];
     return nextLayer
       ? concat(nextLayer, boxCoords) // Order is important
       : null;
@@ -132,7 +145,8 @@ const verticalShift = (warehouse: Warehouse) => {
   const firstVec = move(robot);
   let pushableBoxes: null | Vec[] = null;
   switch (getAt(firstVec)) {
-    case Space.WALL: return;
+    case Space.WALL:
+      return;
     case Space.EMPTY: {
       // no-op
       pushableBoxes = [];
@@ -147,7 +161,7 @@ const verticalShift = (warehouse: Warehouse) => {
       break;
     }
   }
- 
+
   if (pushableBoxes === null) return;
   for (const boxCoord of pushableBoxes) {
     setAt(move(boxCoord), getAt(boxCoord));
@@ -176,13 +190,15 @@ export const navigateWideWarehouse = (input: string) => {
 
   const gpsCoord = (row: number, col: number) => 100 * row + col;
   return sum(
-    warehouse.grid.map((line, row) => sum(
-      line.map((space, col) => {
-        if (space === Space.BOX_L) {
-          return gpsCoord(row, col);
-        }
-        return 0;
-      })
-    )),
+    warehouse.grid.map((line, row) =>
+      sum(
+        line.map((space, col) => {
+          if (space === Space.BOX_L) {
+            return gpsCoord(row, col);
+          }
+          return 0;
+        }),
+      ),
+    ),
   );
 };

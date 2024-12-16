@@ -27,10 +27,9 @@ export const coordToKey =
     return x * (maxX + 1) + y;
   };
 
-export const addVecs = (v1: Vec) => (v2: Vec): Vec => [
-  v1[0] + v2[0],
-  v1[1] + v2[1],
-];
+export const addVecs =
+  (v1: Vec) =>
+  (v2: Vec): Vec => [v1[0] + v2[0], v1[1] + v2[1]];
 
 export const gridHandlers = <T>(grid: Grid<T>) => ({
   getAt: (vec: Vec): T => grid[vec[0]][vec[1]],

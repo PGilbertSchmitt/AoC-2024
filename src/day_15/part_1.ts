@@ -1,6 +1,6 @@
-import { sum } from "ramda";
-import { Grid, ValueOf, Vec } from "../types";
-import { addVecs, gridHandlers } from "../utils";
+import { sum } from 'ramda';
+import { Grid, ValueOf, Vec } from '../types';
+import { addVecs, gridHandlers } from '../utils';
 
 const Space = {
   EMPTY: 0,
@@ -28,45 +28,61 @@ interface Warehouse {
 
 const parseInput = (input: string): Warehouse => {
   const [gridStr, insStr] = input.trim().split('\n\n');
-  
+
   let robot: Vec = [0, 0];
-  const grid = gridStr.split('\n').map((line, row) => (
+  const grid = gridStr.split('\n').map((line, row) =>
     line.split('').map((ch, col) => {
       switch (ch) {
-        case '#': return Space.WALL;
-        case '.': return Space.EMPTY;
-        case 'O': return Space.BOX;
+        case '#':
+          return Space.WALL;
+        case '.':
+          return Space.EMPTY;
+        case 'O':
+          return Space.BOX;
         case '@': {
           robot = [row, col];
           return Space.EMPTY;
         }
-        default: throw new Error(`Invalid warehouse character: ${ch}`);
+        default:
+          throw new Error(`Invalid warehouse character: ${ch}`);
       }
-    })
-  ));
-  
+    }),
+  );
+
   return {
     grid,
     robot,
     iPtr: 0,
-    instructions: insStr.replace(/\n/g, '').split('').map(ch => {
-      switch (ch) {
-        case '^': return Dir.UP;
-        case '>': return Dir.RIGHT;
-        case '<': return Dir.LEFT;
-        case 'v': return Dir.DOWN;
-        default: throw new Error(`Invalid direction: ${ch}`);
-      }
-    }),
-  }
+    instructions: insStr
+      .replace(/\n/g, '')
+      .split('')
+      .map(ch => {
+        switch (ch) {
+          case '^':
+            return Dir.UP;
+          case '>':
+            return Dir.RIGHT;
+          case '<':
+            return Dir.LEFT;
+          case 'v':
+            return Dir.DOWN;
+          default:
+            throw new Error(`Invalid direction: ${ch}`);
+        }
+      }),
+  };
 };
 
 export const dirTransform = (dir: DirType): Vec => {
   switch (dir) {
-    case Dir.UP: return [-1, 0];
-    case Dir.DOWN: return [1, 0];
-    case Dir.RIGHT: return [0, 1];
-    case Dir.LEFT: return [0, -1];
+    case Dir.UP:
+      return [-1, 0];
+    case Dir.DOWN:
+      return [1, 0];
+    case Dir.RIGHT:
+      return [0, 1];
+    case Dir.LEFT:
+      return [0, -1];
   }
 };
 
@@ -86,11 +102,12 @@ const stepWarehouse = (warehouse: Warehouse) => {
     viewedSpace = move(viewedSpace);
     const space = getAt(viewedSpace);
     switch (space) {
-      case Space.WALL: return true;
+      case Space.WALL:
+        return true;
       case Space.BOX: {
         firstBoxPos ||= viewedSpace;
         continue;
-      };
+      }
       case Space.EMPTY: {
         warehouse.robot = move(robot);
         if (firstBoxPos) {
@@ -110,7 +127,11 @@ export const navigateWarehouse = (input: string) => {
   const gpsCoord = (row: number, col: number) => 100 * row + col;
   return sum(
     warehouse.grid.map((line, row) =>
-      sum(line.map((space, col) => space === Space.BOX ? gpsCoord(row, col) : 0)),
+      sum(
+        line.map((space, col) =>
+          space === Space.BOX ? gpsCoord(row, col) : 0,
+        ),
+      ),
     ),
   );
 };

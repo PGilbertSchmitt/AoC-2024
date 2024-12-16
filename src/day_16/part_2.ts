@@ -1,40 +1,57 @@
-import { clone, concat, isNil, last, uniq } from "ramda";
-import { PriorityQueue } from "../priority-queue";
-import { Dir, Dirs, Vec } from "../types";
-import { cheapestPathCost, Input, nextMoveAndCosts, parseInput } from "./part_1";
+import { clone, concat, isNil, last, uniq } from 'ramda';
+import { PriorityQueue } from '../priority-queue';
+import { Dir, Dirs, Vec } from '../types';
+import {
+  cheapestPathCost,
+  Input,
+  nextMoveAndCosts,
+  parseInput,
+} from './part_1';
 
 type MoveWithPriorPaths = {
-  dir: Dir,
-  path: Vec[],
-  cost: number,
+  dir: Dir;
+  path: Vec[];
+  cost: number;
 };
 
 const backwards = (dir: Dir): Dir => {
   switch (dir) {
-    case Dirs.N: return Dirs.S;
-    case Dirs.S: return Dirs.N;
-    case Dirs.E: return Dirs.W;
-    case Dirs.W: return Dirs.E;
+    case Dirs.N:
+      return Dirs.S;
+    case Dirs.S:
+      return Dirs.N;
+    case Dirs.E:
+      return Dirs.W;
+    case Dirs.W:
+      return Dirs.E;
   }
-}
+};
 
 const getCheapestPathSpots = (input: Input) => {
-  const { grid, start, end: [endRow, endCol], gridSize } = input;
+  const {
+    grid,
+    start,
+    end: [endRow, endCol],
+    gridSize,
+  } = input;
   const height = grid.length;
   const startingDir = Dirs.E;
 
   // Unlike in Part 1, we actually need to know the cheapest cost to get to any
   // space. These keys need to keep the dir as well
   const visitedMap = new Map<number, number>();
-  const posKey = (dir: Dir, row: number, col: number) => (dir * gridSize) + (row * height) + col;
+  const posKey = (dir: Dir, row: number, col: number) =>
+    dir * gridSize + row * height + col;
 
-  const currentMoves = new PriorityQueue<MoveWithPriorPaths>((move1, move2) => move1.cost < move2.cost);
+  const currentMoves = new PriorityQueue<MoveWithPriorPaths>(
+    (move1, move2) => move1.cost < move2.cost,
+  );
   currentMoves.push({
     cost: 0,
     dir: startingDir,
     path: [start],
   });
-  
+
   const cheapestCost = cheapestPathCost(input);
 
   let cheapestPath: Vec[] = [];
@@ -55,9 +72,9 @@ const getCheapestPathSpots = (input: Input) => {
       continue;
     }
 
-    let potentialMoves = nextMoveAndCosts(curDir, curRow, curCol).filter(move => (
-      grid[move[1]][move[2]]
-    ));
+    let potentialMoves = nextMoveAndCosts(curDir, curRow, curCol).filter(
+      move => grid[move[1]][move[2]],
+    );
 
     for (const [dir, row, col, moveCost] of potentialMoves) {
       const cost = moveCost + curCost;
@@ -67,7 +84,10 @@ const getCheapestPathSpots = (input: Input) => {
       const prevCost = visitedMap.get(key) || Infinity;
       if (curCost > prevCost) continue;
 
-      const path = potentialMoves.length === 1 ? cheapestMove.path : clone(cheapestMove.path);
+      const path =
+        potentialMoves.length === 1
+          ? cheapestMove.path
+          : clone(cheapestMove.path);
       path.push([row, col]);
       if (curCost === prevCost) {
         cheapestPath = concat(cheapestPath, path);

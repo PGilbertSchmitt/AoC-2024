@@ -1,4 +1,4 @@
-import { Dir, Dirs, Vec } from "../types";
+import { Dir, Dirs, Vec } from '../types';
 
 const parseInput = (input: string) => {
   let guardPos: [number, number] = [0, 0];
