@@ -1,6 +1,4 @@
-import { Dir, Dirs } from './part_1';
-
-type Pos = [number, number];
+import { Dir, Dirs, Vec } from "../types";
 
 const parseInput = (input: string) => {
   let guardPos: [number, number] = [0, 0];
@@ -8,7 +6,7 @@ const parseInput = (input: string) => {
   const rows = input.trim().split('\n');
   const gridHeight = rows.length;
   const gridWidth = rows[0].length;
-  const posKey = ([r, c]: Pos) => r * gridHeight + c;
+  const posKey = ([r, c]: Vec) => r * gridHeight + c;
   rows.forEach((line, row) => {
     line.split('').forEach((ch, col) => {
       switch (ch) {
@@ -30,7 +28,7 @@ const parseInput = (input: string) => {
   };
 };
 
-const nextPos = ([r, c]: Pos, d: Dir): Pos => {
+const nextPos = ([r, c]: Vec, d: Dir): Vec => {
   switch (d) {
     case Dirs.N:
       return [r - 1, c];
@@ -60,13 +58,13 @@ export const totalGuardLoopPositions = (input: string) => {
   const { obstructionSet, guardPos, posKey, gridHeight, gridWidth } =
     parseInput(input);
 
-  const inGrid = ([r, c]: Pos) =>
+  const inGrid = ([r, c]: Vec) =>
     r >= 0 && r < gridHeight && c >= 0 && c < gridWidth;
 
   const guardPath = (obstructions: Set<number>): Map<number, number> | null => {
     const visitMap = new Map<number, number>();
 
-    const visit = (pos: Pos, dir: Dir) => {
+    const visit = (pos: Vec, dir: Dir) => {
       if (inGrid(pos)) {
         const key = posKey(pos);
         const space = visitMap.get(key) || 0;
@@ -74,13 +72,13 @@ export const totalGuardLoopPositions = (input: string) => {
       }
     };
 
-    const visited = (pos: Pos, dir: Dir) => {
+    const visited = (pos: Vec, dir: Dir) => {
       const key = posKey(pos);
       const space = visitMap.get(key) || 0;
       return (space & (1 << dir)) !== 0;
     };
 
-    const navigate = (pos: Pos, dir: Dir): Pos | null => {
+    const navigate = (pos: Vec, dir: Dir): Vec | null => {
       let curPos = pos;
       while (true) {
         visit(curPos, dir);
@@ -96,7 +94,7 @@ export const totalGuardLoopPositions = (input: string) => {
       }
     };
 
-    const turn = (pos: Pos, dir: Dir): Dir | null => {
+    const turn = (pos: Vec, dir: Dir): Dir | null => {
       let newDir = clockworkTurn(dir);
       const ahead = nextPos(pos, newDir);
       if (!inGrid(ahead)) {
@@ -111,7 +109,7 @@ export const totalGuardLoopPositions = (input: string) => {
       return clockworkTurn(newDir);
     };
 
-    let currentPos: Pos = guardPos;
+    let currentPos: Vec = guardPos;
     let currentDir: Dir = Dirs.N;
 
     while (true) {

@@ -1,13 +1,4 @@
-import { ValueOf } from '../types';
-
-export const Dirs = {
-  N: 0,
-  E: 1,
-  S: 2,
-  W: 3,
-} as const;
-
-export type Dir = ValueOf<typeof Dirs>;
+import { Dir, Dirs } from '../types';
 
 type Grid = boolean[][];
 type Pos = [number, number, Dir];
