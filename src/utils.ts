@@ -37,3 +37,6 @@ export const gridHandlers = <T>(grid: Grid<T>) => ({
     grid[vec[0]][vec[1]] = val;
   },
 });
+
+export const bigSum = (list: bigint[]): bigint =>
+  list.reduce((acc, val) => acc + val, 0n);

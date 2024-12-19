@@ -1,5 +1,6 @@
 import { isNotNil } from 'ramda';
 import { Vec } from '../types';
+import { bigSum } from 'src/utils';
 
 interface Machine {
   slope1: Vec;
@@ -89,9 +90,6 @@ export const findButtonPresses = ({ slope1, slope2, end }: Machine) => {
   // Intersection point not reachable using the buttons
   return null;
 };
-
-export const bigSum = (list: bigint[]): bigint =>
-  list.reduce((acc, val) => acc + val, 0n);
 
 export const costOfButtonPresses = (input: string) => {
   const machines = parseInput(input);

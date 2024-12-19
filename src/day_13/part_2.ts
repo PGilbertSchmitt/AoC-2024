@@ -1,5 +1,6 @@
 import { isNotNil } from 'ramda';
-import { bigSum, findButtonPresses, parseInput } from './part_1';
+import { findButtonPresses, parseInput } from './part_1';
+import { bigSum } from 'src/utils';
 
 const OFFSET = 10000000000000;
 
