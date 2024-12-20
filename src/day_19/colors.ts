@@ -1,4 +1,4 @@
-import { ValueOf } from "src/types";
+import { ValueOf } from 'src/types';
 
 // doubles as an index
 export const Colors = {

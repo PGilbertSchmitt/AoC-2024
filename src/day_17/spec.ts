@@ -10,16 +10,10 @@ test('Part 1', t => {
 });
 
 test('Part 2 (handcrafted)', t => {
-  const start = performance.now();
   t.is(findQuineFast(input), 105981155568026n, 'input');
-  const end = performance.now();
-  console.log(`Handcrafted: ${end-start}ms`);
 });
 
 test('Part 2 Generic', t => {
-  const start = performance.now();
   t.is(findQuineGeneric(sample2), 117440n, 'sample2');
   t.is(findQuineGeneric(input), 105981155568026n, 'input');
-  const end = performance.now();
-  console.log(`Generic: ${end-start}ms`);
 });

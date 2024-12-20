@@ -1,4 +1,4 @@
-import { parseInput, evaluateProgram } from "./part_1";
+import { parseInput, evaluateProgram } from './part_1';
 
 const OCTALS = [0n, 1n, 2n, 3n, 4n, 5n, 6n, 7n];
 
@@ -6,7 +6,7 @@ export const findQuineGeneric = (input: string) => {
   const vm = parseInput(input);
   const { program } = vm;
   const maxIdx = program.length - 1;
-  
+
   const tryOctal = (lastInit: bigint, depth: number): bigint | undefined => {
     const desiredValue = program[maxIdx - depth];
     const base = lastInit << 3n;

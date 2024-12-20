@@ -1,5 +1,5 @@
-import { ColorList } from "./color_list";
-import { Color } from "./colors";
+import { ColorList } from './color_list';
+import { Color } from './colors';
 
 type TrieChild = TrieNode | null;
 type ChildNodes = [TrieChild, TrieChild, TrieChild, TrieChild, TrieChild];
@@ -7,7 +7,7 @@ type TrieNode = {
   end: boolean;
   // Index of a color is the color's index defined in the Colors enum
   children: ChildNodes;
-}
+};
 
 export class ColorTrie {
   private root: TrieNode;

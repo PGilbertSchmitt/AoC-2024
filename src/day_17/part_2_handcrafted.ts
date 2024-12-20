@@ -1,9 +1,9 @@
-import { parseInput } from "./part_1";
+import { parseInput } from './part_1';
 
 // Handcrafted solver based on the hardcoded values on the program
 const fastSolveFirstValue = (a: bigint) => {
   const b = (a & 7n) ^ 5n;
-  return ((b ^ 6n) ^ (a >> b)) & 7n;
+  return (b ^ 6n ^ (a >> b)) & 7n;
 };
 
 const OCTALS = [0n, 1n, 2n, 3n, 4n, 5n, 6n, 7n];

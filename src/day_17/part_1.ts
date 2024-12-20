@@ -1,14 +1,17 @@
-import { isNil } from "ramda";
-import { input, sample } from "./input";
+import { isNil } from 'ramda';
+import { input, sample } from './input';
 
 export const parseInput = (input: string) => {
   const [registerStr, programStr] = input.trim().split('\n\n');
 
-  const [a, b, c] = registerStr.split('\n').map(line =>
-    BigInt(parseInt(line.match(/Register [ABC]: (\d+)/)![1]))
-  );
+  const [a, b, c] = registerStr
+    .split('\n')
+    .map(line => BigInt(parseInt(line.match(/Register [ABC]: (\d+)/)![1])));
 
-  const program = programStr.split(': ')[1].split(',').map(x => parseInt(x));
+  const program = programStr
+    .split(': ')[1]
+    .split(',')
+    .map(x => parseInt(x));
 
   return {
     a,
@@ -38,7 +41,8 @@ const safe = (n: number) => {
 
 export const execute = (state: State, ptr: number): null | bigint => {
   const getCombo = (operand: number): bigint => {
-    if (operand > 6) throw new Error('Cannot process combo operand greater than 6');
+    if (operand > 6)
+      throw new Error('Cannot process combo operand greater than 6');
     if (operand < 4) return BigInt(operand);
     return [state.a, state.b, state.c][operand - 4];
   };

@@ -62,13 +62,10 @@ const getCheapestPathSpots = (input: Input) => {
     const curDir = cheapestMove.dir;
     const curCost = cheapestMove.cost;
     const [curRow, curCol] = last(cheapestMove.path)!;
-    // console.log(cheapestMove)
 
     if (curCost > cheapestCost) continue;
     if (curCost === cheapestCost && curRow === endRow && curCol === endCol) {
       cheapestPath = concat(cheapestPath, cheapestMove.path);
-      // console.log('Found end, marking:');
-      // console.log(cheapestPath.map(v => `${v[0]}-${v[1]}`).join(', '));
       continue;
     }
 
@@ -110,5 +107,3 @@ const getCheapestPathSpots = (input: Input) => {
 
 export const getAllCheapestPathSpots = (input: string) =>
   getCheapestPathSpots(parseInput(input));
-
-// console.log(getAllCheapestPathSpots(input));

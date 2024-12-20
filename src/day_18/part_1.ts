@@ -1,6 +1,6 @@
-import { take } from "ramda";
-import { Vec } from "src/types";
-import { coordToKey } from "../utils";
+import { take } from 'ramda';
+import { Vec } from 'src/types';
+import { coordToKey } from '../utils';
 
 export const getCoords = (input: string, maxBytes: number): Vec[] =>
   take(maxBytes, input.trim().split('\n')).map(line => {
@@ -10,10 +10,10 @@ export const getCoords = (input: string, maxBytes: number): Vec[] =>
 
 export const neighbors = ([x, y]: Vec): Vec[] => {
   return [
-    [x+1, y],
-    [x, y+1],
-    [x-1, y],
-    [x, y-1],
+    [x + 1, y],
+    [x, y + 1],
+    [x - 1, y],
+    [x, y - 1],
   ];
 };
 
@@ -22,7 +22,11 @@ interface QElem {
   location: Vec;
 }
 
-export const fewestPathSquares = (input: string, size: number, maxBytes: number) => {
+export const fewestPathSquares = (
+  input: string,
+  size: number,
+  maxBytes: number,
+) => {
   const posKey = coordToKey(size, size);
   const blocked = new Set(getCoords(input, maxBytes).map(v => posKey(...v)!));
 
@@ -34,7 +38,7 @@ export const fewestPathSquares = (input: string, size: number, maxBytes: number)
     const currentPos = queue[qIdx];
 
     if (!currentPos) break;
-    
+
     const neighborCost = currentPos.cost + 1;
     for (const n of neighbors(currentPos.location)) {
       const nKey = posKey(...n);

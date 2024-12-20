@@ -1,10 +1,10 @@
-import { Color } from "./colors";
+import { Color } from './colors';
 
 export type ColorList = {
   color: Color;
   i: number;
   next: ColorList | null;
-}
+};
 
 export const newColorList = ([first, ...sequence]: Color[]): ColorList => {
   const root: ColorList = {

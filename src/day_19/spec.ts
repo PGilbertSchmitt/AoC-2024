@@ -1,7 +1,7 @@
 import test from 'ava';
 import { input, sample } from './input';
 import { validTowels } from './part_1';
-import { totalValidTowels } from './part_2'
+import { totalValidTowels } from './part_2';
 
 test('Part 1', t => {
   t.is(validTowels(sample), 6, 'sample');

@@ -6,10 +6,10 @@
  * this here since it is also faster by quite a bit.
  */
 
-import { Color, Colors } from "./colors";
-import { ColorTrie } from "./color_trie";
-import { ColorList, newColorList } from "./color_list";
-import { any, count, isNotNil, reverse, sum } from "ramda";
+import { Color, Colors } from './colors';
+import { ColorTrie } from './color_trie';
+import { ColorList, newColorList } from './color_list';
+import { any, count, isNotNil, reverse, sum } from 'ramda';
 
 const ColorMap: Record<string, Color> = {
   w: Colors.WHITE,
@@ -24,7 +24,7 @@ const toColorString = (pattern: string) =>
 
 export const parseInput = (input: string) => {
   const [patternStr, sequenceStr] = input.trim().split('\n\n');
-  
+
   return {
     patterns: patternStr.split(', ').map(toColorString),
     sequences: sequenceStr.split('\n').map(toColorString),

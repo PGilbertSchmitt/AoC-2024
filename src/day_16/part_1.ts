@@ -63,15 +63,6 @@ export const nextMoveAndCosts = (
   }
 };
 
-// const dirStr = (dir: Dir) => {
-//   switch (dir) {
-//     case Dirs.N: return '^';
-//     case Dirs.S: return 'v';
-//     case Dirs.E: return '>';
-//     case Dirs.W: return '<';
-//   }
-// }
-
 export const cheapestPathCost = (input: Input) => {
   const {
     grid,
@@ -79,7 +70,6 @@ export const cheapestPathCost = (input: Input) => {
     end: [endRow, endCol],
   } = input;
 
-  // console.log(`Looking for ${endRow}x${endCol}`);
   const startingDir = Dirs.E;
 
   // Any space we revisit is guaranteed to have a shorter path to it since we navigate
@@ -98,7 +88,6 @@ export const cheapestPathCost = (input: Input) => {
     if (isNil(cheapestMove))
       throw new Error('Ran out of valid moves, missed the exit');
     const [curDir, curRow, curCol, curCost] = cheapestMove;
-    // console.log(`Current move: ${dirStr(curDir)} ${curRow}x${curCol} ($${curCost})`);
     if (curRow === endRow && curCol === endCol) {
       mazeCost = curCost;
       break;
@@ -106,7 +95,6 @@ export const cheapestPathCost = (input: Input) => {
     nextMoveAndCosts(curDir, curRow, curCol).forEach(
       ([dir, row, col, cost]) => {
         if (grid[row][col] && !visitedSet.has(posKey(row, col)!)) {
-          // console.log(`Adding ${dirStr(dir)} ${row}x${col} ($${cost+curCost})`)
           currentMoves.push([dir, row, col, cost + curCost]);
         }
       },
