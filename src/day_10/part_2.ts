@@ -1,6 +1,7 @@
 import { sum } from 'ramda';
 import { Vec } from '../types';
-import { neighbors, parseInput } from './part_1';
+import { parseInput } from './part_1';
+import { neighbors } from 'src/utils';
 
 export const trailheadRating = (input: string) => {
   const { startingPoints, heightMap, rowCount, colCount } = parseInput(input);

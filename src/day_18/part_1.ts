@@ -1,21 +1,12 @@
 import { take } from 'ramda';
 import { Vec } from 'src/types';
-import { coordToKey } from '../utils';
+import { coordToKey, neighbors } from '../utils';
 
 export const getCoords = (input: string, maxBytes: number): Vec[] =>
   take(maxBytes, input.trim().split('\n')).map(line => {
     const [_, col, row] = line.match(/(\d+),(\d+)/)!;
     return [parseInt(col), parseInt(row)];
   });
-
-export const neighbors = ([x, y]: Vec): Vec[] => {
-  return [
-    [x + 1, y],
-    [x, y + 1],
-    [x - 1, y],
-    [x, y - 1],
-  ];
-};
 
 interface QElem {
   cost: number;

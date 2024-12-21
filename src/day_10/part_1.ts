@@ -1,6 +1,6 @@
 import { flatten, sum } from 'ramda';
 import { Grid as Grid_, Vec } from '../types';
-import { coordToKey } from '../utils';
+import { coordToKey, neighbors } from '../utils';
 
 type Grid = Grid_<number>;
 
@@ -27,13 +27,6 @@ export const parseInput = (input: string) => {
     colCount: lines[0].length,
   };
 };
-
-export const neighbors = ([r, c]: Vec): Array<Vec> => [
-  [r + 1, c],
-  [r - 1, c],
-  [r, c + 1],
-  [r, c - 1],
-];
 
 export const trailheadScore = (input: string) => {
   const { startingPoints, heightMap, rowCount, colCount } = parseInput(input);

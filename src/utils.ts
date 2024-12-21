@@ -40,3 +40,10 @@ export const gridHandlers = <T>(grid: Grid<T>) => ({
 
 export const bigSum = (list: bigint[]): bigint =>
   list.reduce((acc, val) => acc + val, 0n);
+
+export const neighbors = ([x, y]: Vec): Vec[] => [
+  [x + 1, y],
+  [x, y + 1],
+  [x - 1, y],
+  [x, y - 1],
+];

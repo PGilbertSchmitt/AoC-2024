@@ -1,6 +1,6 @@
 import { PriorityQueue } from 'src/priority-queue';
-import { coordToKey } from 'src/utils';
-import { getCoords, neighbors } from './part_1';
+import { coordToKey, neighbors } from 'src/utils';
+import { getCoords } from './part_1';
 import { Vec } from '../types';
 
 interface QElem {
