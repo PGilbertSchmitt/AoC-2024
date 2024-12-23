@@ -9,11 +9,11 @@ test('Part 1', t => {
   t.is(evaluateInitialProgram(input), '1,5,0,3,7,3,0,3,1', 'input');
 });
 
-test('Part 2 (handcrafted)', t => {
-  t.is(findQuineFast(input), 105981155568026n, 'input');
-});
-
-test('Part 2 Generic', t => {
+test('Part 2', t => {
+  // Generic solution
   t.is(findQuineGeneric(sample2), 117440n, 'sample2');
   t.is(findQuineGeneric(input), 105981155568026n, 'input');
+
+  // Handcrafted solution
+  t.is(findQuineFast(input), 105981155568026n, 'input');
 });
