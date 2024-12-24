@@ -1,5 +1,5 @@
-import { concat, reduce } from "ramda";
-import { sample } from "./input";
+import { concat, reduce } from 'ramda';
+import { sample } from './input';
 
 interface Connection {
   id: string;
@@ -8,29 +8,30 @@ interface Connection {
 
 type ConnectionMap = Map<string, Connection>;
 
-export const parseInput = (input: string): ConnectionMap => reduce(
-  (conns: ConnectionMap, line) => {
-    const [a, b] = line.split('-');
+export const parseInput = (input: string): ConnectionMap =>
+  reduce(
+    (conns: ConnectionMap, line) => {
+      const [a, b] = line.split('-');
 
-    const aConn = conns.get(a) || {
-      id: a,
-      to: [],
-    };
-    const bConn = conns.get(b) || {
-      id: b,
-      to: [],
-    };
+      const aConn = conns.get(a) || {
+        id: a,
+        to: [],
+      };
+      const bConn = conns.get(b) || {
+        id: b,
+        to: [],
+      };
 
-    aConn.to.push(bConn);
-    bConn.to.push(aConn);
-    conns.set(a, aConn);
-    conns.set(b, bConn);
+      aConn.to.push(bConn);
+      bConn.to.push(aConn);
+      conns.set(a, aConn);
+      conns.set(b, bConn);
 
-    return conns;
-  },
-  new Map(),
-  input.trim().split('\n'),
-);
+      return conns;
+    },
+    new Map(),
+    input.trim().split('\n'),
+  );
 
 export const lanPartiesforT = (input: string) => {
   const connections = parseInput(input);
@@ -48,8 +49,13 @@ export const lanPartiesforT = (input: string) => {
   return triplets.size;
 };
 
-const sharedConnections = ([next, ...rest]: Connection[]): [string, string][] => {
+const sharedConnections = ([next, ...rest]: Connection[]): [
+  string,
+  string,
+][] => {
   if (rest.length === 0) return [];
-  const mutuals = rest.filter(c => next.to.includes(c)).map(c => [next.id, c.id] as [string, string]);
+  const mutuals = rest
+    .filter(c => next.to.includes(c))
+    .map(c => [next.id, c.id] as [string, string]);
   return concat(mutuals, sharedConnections(rest));
 };

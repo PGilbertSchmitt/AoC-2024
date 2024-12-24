@@ -10,5 +10,9 @@ test('Part 1', t => {
 
 test('Part 2', t => {
   t.is(largestLanParty(sample), 'co,de,ka,ta', 'sample');
-  t.is(largestLanParty(input), 'bv,cm,dk,em,gs,jv,ml,oy,qj,ri,uo,xk,yw', 'input');
+  t.is(
+    largestLanParty(input),
+    'bv,cm,dk,em,gs,jv,ml,oy,qj,ri,uo,xk,yw',
+    'input',
+  );
 });

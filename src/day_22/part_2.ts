@@ -1,11 +1,11 @@
-import { flatten, isNil, isNotNil, sum, takeLast, uniq } from "ramda";
-import { nextSecret } from "./part_1";
-import { input } from "./input";
+import { flatten, isNil, isNotNil, sum, takeLast, uniq } from 'ramda';
+import { nextSecret } from './part_1';
+import { input } from './input';
 
 // Convert any sequence of 4 digits from -9 to 9 inclusive into a unique value
 const sequenceKey = (a: number, b: number, c: number, d: number) =>
-  (a + 9) + ((b + 9) << 5) + ((c + 9) << 10) + ((d + 9) << 15);
-  // `${a},${b},${c},${d}`;
+  a + 9 + ((b + 9) << 5) + ((c + 9) << 10) + ((d + 9) << 15);
+// `${a},${b},${c},${d}`;
 
 const calculateSequences = (n: number) => (value: number) => {
   const sequence: number[] = [];
@@ -19,7 +19,9 @@ const calculateSequences = (n: number) => (value: number) => {
     sequence.push(ones - lastOnes);
     lastOnes = ones;
     if (i >= 3) {
-      const key = sequenceKey(...takeLast(4, sequence) as [number, number, number, number]);
+      const key = sequenceKey(
+        ...(takeLast(4, sequence) as [number, number, number, number]),
+      );
       if (isNil(sequenceValues.get(key))) {
         sequenceValues.set(key, ones);
       }
@@ -30,7 +32,10 @@ const calculateSequences = (n: number) => (value: number) => {
 };
 
 export const maxBananas = (input: string): number => {
-  const inits = input.trim().split('\n').map(x => parseInt(x));
+  const inits = input
+    .trim()
+    .split('\n')
+    .map(x => parseInt(x));
   const sequenceMaps = inits.map(calculateSequences(2000));
 
   const possibleKeys = new Set<number>();

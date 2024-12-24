@@ -1,5 +1,5 @@
-import { parseInput } from "./part_1";
-import { append, intersection, last } from "ramda";
+import { parseInput } from './part_1';
+import { append, intersection, last } from 'ramda';
 
 export const largestLanParty = (input: string) => {
   const connections = parseInput(input);
@@ -10,7 +10,7 @@ export const largestLanParty = (input: string) => {
     x: string[], // Explored vertexes
   ): string[] => {
     if (p.length === 0 && x.length === 0) return r;
-  
+
     let maximumClique: string[] = [];
     let curP = [...p];
     let curX = [...x];
